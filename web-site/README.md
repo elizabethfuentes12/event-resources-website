@@ -1,11 +1,11 @@
 # Event Resources Website
 
-A customizable static website deployed on AWS S3 + CloudFront for sharing event resources with attendees. Perfect for speakers who want to share AWS account creation links, surveys, demo repositories, and social media links after presentations.
+A customizable static website deployed on Amazon S3 + Amazon CloudFront for sharing event resources with attendees. Perfect for speakers who want to share AWS account creation links, surveys, demo repositories, and social media links after presentations.
 
 ## 🚀 Features
 
 - **Static Website**: Fast, secure, and cost-effective
-- **Easy Customization**: JSON-based configuration for each event
+- **JSON Configuration**: Configure each event through a single JSON file
 - **Professional Design**: Responsive design with AWS branding
 - **CDK Deployment**: Infrastructure as Code with AWS CDK
 - **Private Repository**: Deploy without making your repo public
@@ -39,7 +39,7 @@ pip install -r requirements.txt
 aws configure
 ```
 
-3. **Bootstrap CDK (first time only):**
+3. **Bootstrap CDK (first-time setup only):**
 ```bash
 cdk bootstrap
 ```
@@ -47,8 +47,8 @@ cdk bootstrap
 ## 📝 Customization
 
 1. **Edit event configuration:**
-```bash
-# Edit event_config.json with your event details
+Edit `event_config.json` with your event details:
+```json
 {
   "event_name": "Your Event Name",
   "date": "Event Date",
@@ -56,6 +56,8 @@ cdk bootstrap
   "credits_url": "https://forms.gle/your-credits-survey",
   "survey_url": "https://forms.gle/your-feedback-survey",
   "demo_url": "https://github.com/your-username/your-demo",
+  "deck_pdf": "your-presentation.pdf",
+  "linkedin_profile_image": "https://your-profile-image-url",
   "social_links": {
     "linkedin": "https://linkedin.com/in/your-profile",
     "twitter": "https://twitter.com/your-username",
@@ -79,28 +81,13 @@ cdk deploy
 ```
 
 2. **Get your website URL:**
-The CloudFront URL will be displayed in the output after deployment.
+The CloudFront URL appears in the output after deployment.
 
 ## 🔄 Updating for New Events
 
 1. Update `event_config.json` with new event details
 2. Run `python3 customize_event.py`
 3. Deploy changes: `cdk deploy`
-
-## 💰 AWS Credits Section
-
-The website includes a highlighted section for AWS credits that attendees can obtain by completing a survey. This section:
-- Has a distinctive golden background with animation
-- Appears first in the resources list
-- Links to your credits survey URL
-
-## 🎨 Website Sections
-
-- **AWS Credits**: Get free AWS credits by completing survey
-- **Create AWS Account**: Direct link to AWS Free Tier
-- **Event Survey**: Feedback collection
-- **Project Demo**: Link to your demo repository
-- **Social Media**: All your social profiles
 
 ## 🔧 CDK Commands
 
@@ -112,25 +99,9 @@ The website includes a highlighted section for AWS credits that attendees can ob
 
 ## 💡 Benefits
 
-- **No Public Repository**: Your code stays private
-- **Fast Loading**: CloudFront CDN ensures global performance
-- **Cost Effective**: S3 + CloudFront costs pennies per month
-- **Professional**: Clean, responsive design
-- **Easy Updates**: JSON configuration for quick changes
+- **Private Repository**: Your code stays private
+- **Fast Loading**: CloudFront CDN provides global performance
+- **Cost Effective**: S3 + CloudFront costs minimal amounts per month
+- **Professional Design**: Clean, responsive layout
+- **Quick Updates**: JSON configuration for rapid changes
 - **Secure**: HTTPS by default with CloudFront
-
-## 🔒 Security
-
-- Repository remains private
-- HTTPS enforced via CloudFront
-- S3 bucket configured with appropriate public access settings
-- No sensitive data in the website code
-
-## 📱 Responsive Design
-
-The website is fully responsive and works perfectly on:
-- Desktop computers
-- Tablets
-- Mobile phones
-
-Perfect for attendees accessing the resources on any device during or after your presentation.

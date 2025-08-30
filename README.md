@@ -1,37 +1,37 @@
 # Event Resources Website
 
-A customizable static website deployed on [Amazon S3](https://aws.amazon.com/s3/) + [Amazon CloudFront](https://aws.amazon.com/cloudfront/) for sharing event resources with attendees. Perfect for speakers who want to share account creation links, surveys, demo repositories, and social media links after presentations.
+Build a customizable static website on [Amazon S3](https://aws.amazon.com/s3/) and [Amazon CloudFront](https://aws.amazon.com/cloudfront/) to share event resources with attendees. Perfect for speakers who want to share account creation links, surveys, demo repositories, and social media links after presentations.
+
+## 📱 Applications
+
+| Application | Description | Location |
+|-------------|-------------|----------|
+| **Event Resources Website** | Static website with event resources, social links, and AWS credits section. Deployed using CDK on Amazon S3 + CloudFront | `web-site/` |
+| **QR Code Generator** | Jupyter notebook to generate QR codes for sharing the website URL with event attendees | `qr-generator/` |
 
 ![image1](images/image1.png)
 
 ![image1](images/image2.png)
 
-## 🎯 Why Share Resources at Events?
-
-Sharing resources effectively at events is crucial for:
-- **Attendee Engagement**: Provide immediate access to valuable content while interest is high
-- **Follow-up Connection**: Maintain engagement beyond the event through social media and demos
-- **Learning Continuity**: Enable attendees to continue exploring topics covered in your presentation
-- **Professional Networking**: Share your professional profiles for ongoing connections
-- **Feedback Collection**: Gather valuable insights to improve future presentations
-
 ## 🚀 Features
 
 - **Static Website**: Fast, secure, and cost-effective
-- **Easy Customization**: JSON-based configuration for each event
+- **JSON Configuration**: Configure each event through a single JSON file
+- **Customizable Content**: Add any resource cards to the website
 - **Professional Design**: Responsive design with clean branding
 - **CDK Deployment**: Infrastructure as Code with AWS CDK
 - **Private Repository**: Deploy without making your repo public
 - **Social Media Integration**: LinkedIn, Twitter, GitHub, YouTube, Instagram
 - **Credits Section**: Highlighted section for free credits or special offers
+- **PDF Resources**: Include presentation decks and other downloadable materials
 
 ## 🛠️ Built with AWS CDK
 
-This application uses **[AWS Cloud Development Kit (CDK)](https://docs.aws.amazon.com/cdk/)** - a software development framework for defining cloud infrastructure in code. CDK allows you to:
-- Define infrastructure using familiar programming languages
-- Leverage the power of programming constructs like loops, conditions, and functions
-- Use IDE features like auto-complete and inline documentation
-- Apply software engineering practices to infrastructures
+This application uses [AWS Cloud Development Kit (CDK)](https://docs.aws.amazon.com/cdk/) - a software development framework for defining cloud infrastructure in code. CDK provides:
+- Infrastructure definition using familiar programming languages
+- Programming constructs such as loops, conditions, and functions
+- IDE features such as auto-complete and inline documentation
+- Software engineering practices applied to infrastructure
 
 ## 📁 Project Structure
 
@@ -60,16 +60,16 @@ pip install -r requirements.txt
 aws configure
 ```
 
-3. **Bootstrap CDK (first time only):**
+3. **Bootstrap CDK (first-time setup only):**
 ```bash
 cdk bootstrap
 ```
 
 ## 📝 Customization
 
-1. **Edit event configuration:**
-```bash
-# Edit event_config.json with your event details
+### Event Configuration
+Edit `web-site/event_config.json` with your event details:
+```json
 {
   "event_name": "Your Event Name",
   "date": "Event Date",
@@ -77,6 +77,8 @@ cdk bootstrap
   "credits_url": "https://forms.gle/your-credits-survey",
   "survey_url": "https://forms.gle/your-feedback-survey",
   "demo_url": "https://github.com/your-username/your-demo",
+  "deck_pdf": "your-presentation.pdf",
+  "linkedin_profile_image": "https://your-profile-image-url",
   "social_links": {
     "linkedin": "https://linkedin.com/in/your-profile",
     "twitter": "https://twitter.com/your-username",
@@ -87,8 +89,22 @@ cdk bootstrap
 }
 ```
 
-2. **Apply customization:**
+### Customizable Website Content
+The `web-site/website/index.html` file contains resource cards that you can modify:
+
+- **AWS Account Creation**: Direct link to AWS Free Tier
+- **AWS Credits**: Highlighted section for survey-based credits
+- **Presentation Deck**: PDF download of your slides
+- **Event Survey**: Feedback collection form
+- **Project Demo**: Link to your demo repository
+- **Custom Resources**: Add any additional resource cards
+
+**Important**: When adding new resource cards, add the corresponding URLs to `event_config.json` so the customization script can update them automatically.
+
+### Apply Customization
+After editing the configuration:
 ```bash
+cd web-site
 python3 customize_event.py
 ```
 
@@ -100,28 +116,13 @@ cdk deploy
 ```
 
 2. **Get your website URL:**
-The CloudFront URL will be displayed in the output after deployment.
+The CloudFront URL appears in the output after deployment.
 
 ## 🔄 Updating for New Events
 
 1. Update `event_config.json` with new event details
 2. Run `python3 customize_event.py`
 3. Deploy changes: `cdk deploy`
-
-## 💰 AWS Credits Section
-
-The website includes a highlighted section for AWS credits that attendees can obtain by completing a survey. This section:
-- Has a distinctive golden background with animation
-- Appears first in the resources list
-- Links to your credits survey URL
-
-## 🎨 Website Sections
-
-- **AWS Credits**: Get free AWS credits by completing survey
-- **Create AWS Account**: Direct link to AWS Free Tier
-- **Event Survey**: Feedback collection
-- **Project Demo**: Link to your demo repository
-- **Social Media**: All your social profiles
 
 ## 🔧 CDK Commands
 
@@ -133,29 +134,29 @@ The website includes a highlighted section for AWS credits that attendees can ob
 
 ## 💰 AWS Free Tier & Costs
 
-This application can run at **zero cost** under AWS Free Tier:
+This application runs at zero cost under AWS Free Tier:
 
 - **Amazon S3**: 5 GB of storage, 20,000 GET requests, 2,000 PUT requests per month
 - **Amazon CloudFront**: 1 TB of data transfer out, 10,000,000 HTTP/HTTPS requests per month
 
-For a typical event resources website (few MB of static files), you'll likely stay within free tier limits.
+For a typical event resources website (few MB of static files), you stay within free tier limits.
 
 **After Free Tier or for higher usage:**
-- S3: ~$0.023 per GB stored per month
-- CloudFront: ~$0.085 per GB transferred
+- Amazon S3: ~$0.023 per GB stored per month
+- Amazon CloudFront: ~$0.085 per GB transferred
 
 For detailed pricing information:
-- [S3 Pricing](https://aws.amazon.com/s3/pricing/)
-- [CloudFront Pricing](https://aws.amazon.com/cloudfront/pricing/)
+- [Amazon S3 Pricing](https://aws.amazon.com/s3/pricing/)
+- [Amazon CloudFront Pricing](https://aws.amazon.com/cloudfront/pricing/)
 - [AWS Pricing Calculator](https://calculator.aws)
 
 ## 💡 Benefits
 
-- **No Public Repository**: Your code stays private
-- **Fast Loading**: CloudFront CDN ensures global performance
-- **Cost Effective**: Zero cost with Free Tier, pennies per month otherwise
-- **Professional**: Clean, responsive design
-- **Easy Updates**: JSON configuration for quick changes
+- **Private Repository**: Your code stays private
+- **Fast Loading**: CloudFront CDN provides global performance
+- **Cost Effective**: Zero cost with Free Tier, minimal cost otherwise
+- **Professional Design**: Clean, responsive layout
+- **Quick Updates**: JSON configuration for rapid changes
 - **Secure**: HTTPS by default with CloudFront
 
 ## 🔒 Security
@@ -165,11 +166,9 @@ For detailed pricing information:
 - S3 bucket configured with appropriate public access settings
 - No sensitive data in the website code
 
-## 📱 Responsive Design
+---
 
-The website is fully responsive and works perfectly on:
-- Desktop computers
-- Tablets
-- Mobile phones
+Gracias! 
 
-Perfect for attendees accessing the resources on any device during or after your presentation.
+🇻🇪🇨🇱 [Dev.to](https://dev.to/elizabethfuentes12) [Linkedin](https://www.linkedin.com/in/lizfue/) [GitHub](https://github.com/elizabethfuentes12/) [Twitter](https://twitter.com/elizabethfue12) [Instagram](https://www.instagram.com/elifue.tech) [Youtube](https://www.youtube.com/channel/UCr0Gnc-t30m4xyrvsQpNp2Q)
+[Linktr](https://linktr.ee/elizabethfuentesleone)
