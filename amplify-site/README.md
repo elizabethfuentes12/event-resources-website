@@ -2,6 +2,8 @@
 
 Deploy a static event resources website with **AWS Amplify Hosting**. Push to GitHub and Amplify deploys automatically.
 
+> **Note:** This project lives inside a subfolder (`amplify-site/`) of a larger repository. The setup steps below account for that.
+
 ## Prerequisites
 
 Before you begin, make sure you have:
@@ -20,7 +22,7 @@ Push to GitHub  -->  Amplify detects change  -->  Builds & deploys  -->  Your au
 
 - You push your code to a GitHub repository
 - **AWS Amplify** detects the push and automatically deploys the site
-- The `amplify.yml` file tells Amplify which folder to serve
+- Amplify is configured to serve only the `amplify-site/` subfolder
 - You only need to edit `event_config.json` to customize the page for each event
 
 ## Step 1 - Fork or Clone This Repository
@@ -108,17 +110,35 @@ git commit -m "Configure event resources page"
 git push origin main
 ```
 
-## Step 5 - Connect to AWS Amplify
+## Step 5 - Deploy with AWS Amplify
+
+Since `amplify-site/` is a **subfolder** inside a larger repository, follow these steps carefully:
 
 1. Go to the [AWS Amplify Console](https://console.aws.amazon.com/amplify/)
-2. Click **New app** > **Host web app**
-3. Select **GitHub** as the source provider
-4. Authorize AWS Amplify to access your GitHub account (you will see a GitHub authorization popup)
+2. Click **Create new app**
+3. Select **GitHub** as the source provider and click **Next**
+4. Authorize AWS Amplify to access your GitHub account if prompted
 5. Select your **repository** and **branch** (usually `main`)
-6. In the build settings:
-   - Set **App root** to `amplify-site`
+6. **Important - Configure the subfolder:**
+   - Check the box **My app is a monorepo**
+   - In the **Monorepo root directory** field, type: `amplify-site`
+7. In the **Build settings** section:
    - Amplify will detect the `amplify.yml` file automatically
-7. Click **Save and deploy**
+   - If it does not, paste this build spec:
+     ```yaml
+     version: 1
+     frontend:
+       phases:
+         build:
+           commands: []
+       artifacts:
+         baseDirectory: /
+         files:
+           - '**/*'
+       cache:
+         paths: []
+     ```
+8. Click **Next** and then **Save and deploy**
 
 Amplify will build and deploy your site. When it finishes, you will get a URL like:
 
@@ -130,9 +150,10 @@ https://main.d1234abcdef.amplifyapp.com
 
 To use your own domain:
 
-1. In the Amplify Console, go to **Domain management**
-2. Click **Add domain**
-3. Follow the instructions to verify DNS ownership
+1. In the Amplify Console, select your app
+2. Go to **Hosting** > **Custom domains**
+3. Click **Add domain**
+4. Follow the instructions to verify DNS ownership
 
 [Amplify Custom Domains documentation](https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html)
 
@@ -157,7 +178,7 @@ To remove the Amplify app and stop charges:
 1. Go to the [AWS Amplify Console](https://console.aws.amazon.com/amplify/)
 2. Select your app
 3. Go to **App settings** > **General**
-4. Click **Delete app**
+4. Scroll to the bottom and click **Delete app**
 
 ## Project Structure
 
@@ -174,7 +195,9 @@ amplify-site/
 
 | Problem | Solution |
 |---------|----------|
-| Amplify build fails | Check that **App root** is set to `amplify-site` in the build settings |
-| Page looks broken | Make sure `amplify.yml` exists in the `amplify-site/` folder |
+| Amplify does not find the site files | Make sure you checked **My app is a monorepo** and set the root directory to `amplify-site` |
+| Amplify build fails | Verify that `amplify.yml` exists inside `amplify-site/` (not at the repo root) |
+| Page looks broken after deploy | Check the Amplify build logs - look for the line `baseDirectory: /` to confirm it is serving the right folder |
 | Images don't load | Verify the image paths in `event_config.json` match the files in `img/` |
 | Changes not showing | Check the Amplify Console for deployment status (takes about 1 minute) |
+| Only `amplify-site/` changes should trigger a deploy | In **App settings** > **Branch settings**, you can configure a path filter to only trigger on `amplify-site/**` changes |
