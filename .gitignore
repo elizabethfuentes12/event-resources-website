@@ -1,3 +1,10 @@
+# macOS
+.DS_Store
+
+# CDK
+.cdk.staging
+cdk.out
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

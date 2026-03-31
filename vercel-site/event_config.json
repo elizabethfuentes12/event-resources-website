@@ -1,0 +1,63 @@
+{
+  "event": {
+    "name": "Building AI-Powered Applications Workshop",
+    "date": "April 15, 2026",
+    "location": "Seattle, WA",
+    "description": "A hands-on workshop where you will learn to build, test, and deploy AI-powered applications using cloud-native services.",
+    "tags": ["AI Agents", "Cloud Native", "Hands-on Workshop"]
+  },
+  "speakers": [
+    {
+      "name": "Alex Johnson",
+      "title": "Senior Developer Advocate",
+      "image": "img/profile.jpeg",
+      "social_links": [
+        {
+          "name": "LinkedIn",
+          "url": "https://www.linkedin.com/",
+          "icon": "img/link.png"
+        },
+        {
+          "name": "GitHub",
+          "url": "https://github.com/",
+          "icon": "img/github.png"
+        }
+      ]
+    },
+    {
+      "name": "Sam Rivera",
+      "title": "Solutions Architect",
+      "image": "img/profile.jpeg",
+      "social_links": [
+        {
+          "name": "LinkedIn",
+          "url": "https://www.linkedin.com/",
+          "icon": "img/link.png"
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "title": "Workshop Repository",
+      "description": "Clone the repo and follow along with the hands-on exercises",
+      "url": "https://github.com/example/workshop-repo",
+      "type": "github",
+      "highlight": false
+    },
+    {
+      "title": "Getting Started Guide",
+      "description": "Step-by-step documentation to set up your environment",
+      "url": "https://docs.example.com/getting-started",
+      "type": "article",
+      "highlight": false
+    },
+    {
+      "title": "Presentation Deck",
+      "description": "Download the complete presentation slides in PDF format",
+      "url": "presentation-deck.pdf",
+      "type": "pdf",
+      "highlight": false
+    }
+  ]
+}

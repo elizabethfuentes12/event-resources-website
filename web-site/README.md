@@ -1,107 +1,208 @@
-# Event Resources Website
+# Event Resources Website - S3 + CloudFront (AWS CDK)
 
-A customizable static website deployed on Amazon S3 + Amazon CloudFront for sharing event resources with attendees. Perfect for speakers who want to share AWS account creation links, surveys, demo repositories, and social media links after presentations.
+Deploy a static event resources website to **Amazon S3** with **CloudFront** as CDN, using **AWS CDK** (Python).
 
-## 🚀 Features
+## Prerequisites
 
-- **Static Website**: Fast, secure, and cost-effective
-- **JSON Configuration**: Configure each event through a single JSON file
-- **Professional Design**: Responsive design with AWS branding
-- **CDK Deployment**: Infrastructure as Code with AWS CDK
-- **Private Repository**: Deploy without making your repo public
-- **Social Media Integration**: LinkedIn, Twitter, GitHub, YouTube, Instagram
-- **AWS Credits Section**: Highlighted section for free AWS credits survey
+Before you begin, make sure you have:
 
-## 📁 Project Structure
+1. **An AWS Account** - [Create one here](https://aws.amazon.com/free/) if you don't have one
+2. **AWS CLI** installed and configured - [Installation guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+3. **Node.js** (v18 or later) - [Download here](https://nodejs.org/)
+4. **Python 3.9+** - [Download here](https://www.python.org/downloads/)
+5. **AWS CDK CLI** - Install it globally:
+   ```bash
+   npm install -g aws-cdk
+   ```
+
+## How It Works
 
 ```
-web-site/
-├── website/                 # Static website files
-│   ├── index.html          # Main HTML template
-│   └── styles.css          # CSS styles
-├── web_site/               # CDK stack
-│   └── web_site_stack.py   # S3 + CloudFront infrastructure
-├── customize_event.py      # Event customization script
-├── event_config.json       # Event configuration
-├── app.py                  # CDK app entry point
-└── requirements.txt        # Python dependencies
+event_config.json  -->  index.html (reads JSON)  -->  S3 Bucket  -->  CloudFront  -->  Your audience
 ```
 
-## 🛠️ Setup
+- Your website files (`index.html`, `styles.css`, `event_config.json`, images) are uploaded to an **S3 bucket**
+- **CloudFront** serves them globally with HTTPS
+- You only need to edit `event_config.json` to customize the page for each event
 
-1. **Install dependencies:**
+## Step 1 - Configure Your Event
+
+Edit `website/event_config.json` with your event details:
+
+```json
+{
+  "event": {
+    "name": "Your Event Name",
+    "date": "April 15, 2026",
+    "location": "City, Country",
+    "description": "What the event is about",
+    "tags": ["Topic 1", "Topic 2"]
+  },
+  "speakers": [
+    {
+      "name": "Speaker Name",
+      "title": "Speaker Title",
+      "image": "img/profile.jpeg",
+      "social_links": [
+        {
+          "name": "LinkedIn",
+          "url": "https://www.linkedin.com/in/your-profile/",
+          "icon": "img/link.png"
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "title": "Resource Title",
+      "description": "What this resource is",
+      "url": "https://example.com",
+      "type": "link",
+      "highlight": false
+    }
+  ]
+}
+```
+
+### Resource Types
+
+| Type | Icon | Use for |
+|------|------|---------|
+| `link` | External link | General URLs |
+| `github` | GitHub logo | Repositories |
+| `article` | Book | Blog posts, docs |
+| `pdf` | Document | Presentation decks |
+| `survey` | Clipboard | Feedback forms (highlighted in green) |
+
+### Speaker Images
+
+Place speaker photos in the `website/img/` folder and reference them in the config:
+
+```json
+"image": "img/your-photo.jpeg"
+```
+
+## Step 2 - Test Locally
+
+Preview your site in the browser before deploying:
+
 ```bash
-pip install -r requirements.txt
+cd website
+python3 -m http.server 8080
 ```
 
-2. **Configure AWS credentials:**
+Open [http://localhost:8080](http://localhost:8080) in your browser.
+
+## Step 3 - Configure AWS Credentials
+
+If you haven't configured AWS CLI yet:
+
 ```bash
 aws configure
 ```
 
-3. **Bootstrap CDK (first-time setup only):**
+It will ask for:
+- **AWS Access Key ID** - Get it from [IAM Console](https://console.aws.amazon.com/iam/) > Users > Security credentials
+- **AWS Secret Access Key** - Same place as above
+- **Default region** - e.g., `us-east-1`
+- **Output format** - `json`
+
+## Step 4 - Set Up the Project
+
+```bash
+# Create and activate a virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+## Step 5 - Bootstrap CDK (First Time Only)
+
+If this is your first time using CDK in this AWS account/region:
+
 ```bash
 cdk bootstrap
 ```
 
-## 📝 Customization
+This creates the resources CDK needs to deploy. You only need to do this once per account/region. [Learn more about CDK bootstrapping](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html).
 
-1. **Edit event configuration:**
-Edit `event_config.json` with your event details:
-```json
-{
-  "event_name": "Your Event Name",
-  "date": "Event Date",
-  "city": "Event City",
-  "credits_url": "https://forms.gle/your-credits-survey",
-  "survey_url": "https://forms.gle/your-feedback-survey",
-  "demo_url": "https://github.com/your-username/your-demo",
-  "deck_pdf": "your-presentation.pdf",
-  "linkedin_profile_image": "https://your-profile-image-url",
-  "social_links": {
-    "linkedin": "https://linkedin.com/in/your-profile",
-    "twitter": "https://twitter.com/your-username",
-    "github": "https://github.com/your-username",
-    "youtube": "https://youtube.com/@your-channel",
-    "instagram": "https://instagram.com/your-username"
-  }
-}
-```
+## Step 6 - Deploy
 
-2. **Apply customization:**
-```bash
-python3 customize_event.py
-```
-
-## 🚀 Deployment
-
-1. **Deploy the stack:**
 ```bash
 cdk deploy
 ```
 
-2. **Get your website URL:**
-The CloudFront URL appears in the output after deployment.
+CDK will show you the resources it will create and ask for confirmation. Type `y` to proceed.
 
-## 🔄 Updating for New Events
+When the deployment finishes, you will see the **CloudFront URL** in the output:
 
-1. Update `event_config.json` with new event details
-2. Run `python3 customize_event.py`
-3. Deploy changes: `cdk deploy`
+```
+Outputs:
+WebSiteStack.WebsiteURL = https://d1234abcdef.cloudfront.net
+```
 
-## 🔧 CDK Commands
+That URL is your live event resources page.
 
-- `cdk ls` - List all stacks
-- `cdk synth` - Synthesize CloudFormation template
-- `cdk deploy` - Deploy the stack
-- `cdk diff` - Compare deployed stack with current state
-- `cdk destroy` - Remove the stack
+## Updating Your Event
 
-## 💡 Benefits
+To update the page for a new event:
 
-- **Private Repository**: Your code stays private
-- **Fast Loading**: CloudFront CDN provides global performance
-- **Cost Effective**: S3 + CloudFront costs minimal amounts per month
-- **Professional Design**: Clean, responsive layout
-- **Quick Updates**: JSON configuration for rapid changes
-- **Secure**: HTTPS by default with CloudFront
+1. Edit `website/event_config.json` with the new event details
+2. Replace images in `website/img/` if needed
+3. Run `cdk deploy` again
+
+## Clean Up
+
+To remove all resources and avoid charges:
+
+```bash
+cdk destroy
+```
+
+## Project Structure
+
+```
+web-site/
+  app.py                    # CDK app entry point
+  cdk.json                  # CDK configuration
+  requirements.txt          # Python dependencies
+  event_config.json         # Legacy config (not used by the website)
+  web_site/
+    web_site_stack.py       # CDK stack (S3 + CloudFront)
+  website/
+    index.html              # Main page
+    styles.css              # Styles
+    event_config.json       # Event data (edit this)
+    img/                    # Speaker photos and icons
+    presentation-deck.pdf   # Presentation deck
+```
+
+## Useful CDK Commands
+
+| Command | Description |
+|---------|-------------|
+| `cdk synth` | Generate the CloudFormation template without deploying |
+| `cdk diff` | See what changes will be applied |
+| `cdk deploy` | Deploy the stack |
+| `cdk destroy` | Delete all resources |
+| `cdk docs` | Open CDK documentation |
+
+## Troubleshooting
+
+| Problem | Solution |
+|---------|----------|
+| `cdk: command not found` | Run `npm install -g aws-cdk` |
+| `Unable to resolve AWS account` | Run `aws configure` and set your credentials |
+| `CDK bootstrap required` | Run `cdk bootstrap` first |
+| Page shows old content after deploy | Wait a few minutes for CloudFront cache to update, or run an invalidation |
+
+## Cost
+
+This runs at zero cost under [AWS Free Tier](https://aws.amazon.com/free/):
+
+- **Amazon S3**: 5 GB storage, 20,000 GET requests/month
+- **Amazon CloudFront**: 1 TB data transfer, 10M requests/month
+
+For detailed pricing: [S3 Pricing](https://aws.amazon.com/s3/pricing/) | [CloudFront Pricing](https://aws.amazon.com/cloudfront/pricing/) | [AWS Pricing Calculator](https://calculator.aws)
