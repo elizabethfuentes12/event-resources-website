@@ -1,63 +1,75 @@
 {
   "event": {
-    "name": "Building AI-Powered Applications Workshop",
-    "date": "April 15, 2026",
-    "location": "Seattle, WA",
-    "description": "A hands-on workshop where you will learn to build, test, and deploy AI-powered applications using cloud-native services.",
-    "tags": ["AI Agents", "Cloud Native", "Hands-on Workshop"]
+    "name": "AWS SBG at SFSU - Kiro Workshop",
+    "date": "Sep 18, 2026",
+    "location": "San Francisco",
+    "description": "",
+    "tags": []
   },
   "speakers": [
     {
-      "name": "Alex Johnson",
-      "title": "Senior Developer Advocate",
-      "image": "img/profile.jpeg",
+      "name": "Fabricio Flores",
+      "title": "Developer Advocate",
+      "image": "img/Fabricio_Headshot.jpg",
       "social_links": [
         {
           "name": "LinkedIn",
-          "url": "https://www.linkedin.com/",
+          "url": "https://www.linkedin.com/in/fabricioflores31/",
           "icon": "img/link.png"
         },
         {
-          "name": "GitHub",
-          "url": "https://github.com/",
-          "icon": "img/github.png"
-        }
-      ]
-    },
-    {
-      "name": "Sam Rivera",
-      "title": "Solutions Architect",
-      "image": "img/profile.jpeg",
-      "social_links": [
+          "name": "AWS Builder Center",
+          "url": "https://builder.aws.com/community/@florfabr",
+          "icon": "img/abc.png"
+        },
         {
-          "name": "LinkedIn",
-          "url": "https://www.linkedin.com/",
-          "icon": "img/link.png"
+          "name": "GitHub",
+          "url": "https://github.com/fabriciof12345/",
+          "icon": "img/github.png"
+        },
+        {
+          "name": "Dev.to",
+          "url": "https://dev.to/fabricioflores",
+          "icon": "img/dev_to.png"
         }
       ]
     }
   ],
   "resources": [
     {
-      "title": "Workshop Repository",
-      "description": "Clone the repo and follow along with the hands-on exercises",
-      "url": "https://github.com/example/workshop-repo",
-      "type": "github",
+      "title": "AWS Hands-on Workshop",
+      "description": "",
+      "url": "https://catalog.us-east-1.prod.workshops.aws/join?access-code=132a-015cc4-41",
+      "type": "link",
+      "highlight": true
+    },
+    {
+      "title": "AWS Builder Center",
+      "description": "",
+      "url": "https://builder.aws.com/start?trk=0a3e63d3-e29a-4c69-b70d-caa08a783f72&sc_channel=el",
+      "type": "link",
       "highlight": false
     },
     {
-      "title": "Getting Started Guide",
-      "description": "Step-by-step documentation to set up your environment",
-      "url": "https://docs.example.com/getting-started",
+      "title": "Workshop Instructions (Post-event)",
+      "description": "",
+      "url": "https://catalog.workshops.aws/kiro-express",
       "type": "article",
       "highlight": false
     },
     {
-      "title": "Presentation Deck",
-      "description": "Download the complete presentation slides in PDF format",
-      "url": "presentation-deck.pdf",
+      "title": "BMCC Presentation Deck",
+      "description": "Download the BMCC presentation slides in PDF format",
+      "url": "img/BMCC-presentation.pdf",
       "type": "pdf",
       "highlight": false
+    },
+    {
+      "title": "Event Survey",
+      "description": "",
+      "url": "https://pulse.amazon/survey/XKPWGSQS",
+      "type": "survey",
+      "highlight": true
     }
   ]
 }

@@ -1,10 +1,10 @@
 {
-  "event_name": "Your Event Name",
-  "date": "April 15, 2026",
-  "city": "Seattle, WA",
+  "event_name": "AWS SBG at SFSU - Kiro Workshop",
+  "date": "Sep 18, 2026",
+  "city": "San Francisco",
   "credits_url": "https://example.com/credits",
   "survey_url": "https://example.com/survey",
-  "demo_url": "https://github.com/your-username/your-demo",
+  "demo_url": "https://catalog.us-east-1.prod.workshops.aws/join?access-code=132a-015cc4-41",
   "deck_pdf": "presentation-deck.pdf",
   "linkedin_profile_image": "img/profile.jpeg",
   "social_links": {

@@ -1,10 +1,14 @@
 {
   "event": {
-    "name": "Building AI-Powered Applications Workshop",
-    "date": "April 15, 2026",
-    "location": "Seattle, WA",
+    "name": "AWS SBG at SFSU - Kiro Workshop",
+    "date": "Sep 18, 2026",
+    "location": "San Francisco",
     "description": "A hands-on workshop where you will learn to build, test, and deploy AI-powered applications using cloud-native services.",
-    "tags": ["AI Agents", "Cloud Native", "Hands-on Workshop"]
+    "tags": [
+      "AI Agents",
+      "Cloud Native",
+      "Hands-on Workshop"
+    ]
   },
   "speakers": [
     {
@@ -39,11 +43,11 @@
   ],
   "resources": [
     {
-      "title": "Workshop Repository",
-      "description": "Clone the repo and follow along with the hands-on exercises",
-      "url": "https://github.com/example/workshop-repo",
-      "type": "github",
-      "highlight": false
+      "title": "AWS Hands-on Workshop",
+      "description": "",
+      "url": "https://catalog.us-east-1.prod.workshops.aws/join?access-code=132a-015cc4-41",
+      "type": "link",
+      "highlight": true
     },
     {
       "title": "Getting Started Guide",
